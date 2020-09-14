@@ -30,7 +30,7 @@ router.createProject = ("/", (req, res, next) => {
 router.getOneProject =
   ("/:id",
   (req, res, next) => {
-    Proejct.findOne({ _id: req.params.id })
+    Project.findOne({ _id: req.params.id })
       .then((project) => res.status(200).json(project))
       .catch((error) => res.status(404).json({ error }));
   });
