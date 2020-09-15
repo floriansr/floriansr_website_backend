@@ -4,6 +4,7 @@ const projectSchema = mongoose.Schema({
   team: { type: String, required: true },
   themes: { type: String, required: true },
   tools: { type: String, required: true },
+  slug: { type: String, required: true },
   github_link: { type: String, required: true },
   discovery_links: { type: String, required: true },
   title: { type: String, required: true },
