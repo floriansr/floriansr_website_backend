@@ -3,23 +3,15 @@ import Project from "../models/project.js";
 
 const router = express.Router();
 
-router.createProject = ("/", (req, res, next) => {
+router.createProject = ("/", (req, res, next) => {  
     const projectObject = req.body;
     delete projectObject._id;
     const project = new Project({
       ...projectObject,
-      imageUrl: `${req.protocol}://${req.get("host")}/images/${
-        req.files[0].filename
-      }`,
-      imageUrl1: `${req.protocol}://${req.get("host")}/images/${
-        req.files[1].filename
-      }`,
-      imageUrl2: `${req.protocol}://${req.get("host")}/images/${
-        req.files[2].filename
-      }`,
-      imageUrl3: `${req.protocol}://${req.get("host")}/images/${
-        req.files[3].filename
-      }`,
+      imageUrl: req.files[0].location,
+      imageUrl1: req.files[1].location,
+      imageUrl2: req.files[2].location,
+      imageUrl3: req.files[3].location,
     });
     project
       .save()
