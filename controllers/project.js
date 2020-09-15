@@ -22,9 +22,9 @@ router.createProject = ("/", (req, res, next) => {
 router.getOneProject =
   ("/:id",
   (req, res, next) => {
-    Project.findOne({ _id: req.params.id })
-      .then((project) => res.status(200).json(project))
-      .catch((error) => res.status(404).json({ error }));
+        Project.findOne({ slug: req.params.id })
+          .then((project) => res.status(200).json(project))
+          .catch((error) => res.status(404).json({ error }));
   });
 
 router.getAllProjects =
