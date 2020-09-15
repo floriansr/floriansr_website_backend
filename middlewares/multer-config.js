@@ -1,20 +1,25 @@
 import multer from "multer";
+import multerS3 from "multer-s3"
+import aws from "aws-sdk"
+import dotenv from 'dotenv'
+dotenv.config()
 
-// const MIME_TYPES = {
-//   "image/jpg": "jpg",
-//   "image/jpeg": "jpg",
-//   "image/png": "png",
-// };
-
-const storage = multer.diskStorage({
-  destination: (req, file, callback) => {
-    callback(null, "images");
-  },
-  filename: (req, file, callback) => {
-    const name = file.originalname.split(" ").join("_");
-    // const extension = MIME_TYPES[file.mimetype];
-    callback(null, name);
-  },
+const s3 = new aws.S3({
+  accessKeyId: process.env.ACCESS_AWS3_KEY_ID,
+  secretAccessKey: process.env.SECRET_KEY_AWS3,
+  Bucket: process.env.BUCKET_NAME,
 });
 
-export default multer({ storage: storage }).array('image', 4);
+const storage = multer({
+  storage: multerS3({
+    s3: s3,
+    bucket: process.env.BUCKET_NAME,
+    acl: "public-read",
+    key: function (req, file, cb) {
+      const name = file.originalname.split(" ").join("_");
+      cb(null, name);
+    },
+  }),
+});
+
+export default multer(storage).array('image', 4);
