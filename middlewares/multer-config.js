@@ -22,4 +22,4 @@ const storage = multer({
   }),
 });
 
-export default multer(storage).array('image', 4);
+export default multer(storage).array('image', 3);

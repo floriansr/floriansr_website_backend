@@ -15,7 +15,6 @@ const projectSchema = mongoose.Schema({
   imageUrl: { type: String, required: true },
   imageUrl1: { type: String, required: false },
   imageUrl2: { type: String, required: false },
-  imageUrl3: { type: String, required: false },
 });
 
 export default mongoose.model("Project", projectSchema);

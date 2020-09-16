@@ -11,7 +11,6 @@ router.createProject = ("/", (req, res, next) => {
       imageUrl: req.files[0].location,
       imageUrl1: req.files[1].location,
       imageUrl2: req.files[2].location,
-      imageUrl3: req.files[3].location,
     });
     project
       .save()
