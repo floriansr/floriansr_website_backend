@@ -5,13 +5,20 @@ const router = express.Router();
 
 router.createProject = ("/", (req, res, next) => {  
     const projectObject = req.body;
-    delete projectObject._id;
-    const project = new Project({
-      ...projectObject,
-      imageUrl: req.files[0].location,
-      imageUrl1: req.files[1].location,
-      imageUrl2: req.files[2].location,
-    });
+  delete projectObject._id;
+    const project = new Project(
+      req.files[1] !== undefined
+        ? {
+            ...projectObject,
+            imageUrl: req.files[0].location,
+            imageUrl1: req.files[1].location,
+            imageUrl2: req.files[2].location,
+          }
+        : {
+            ...projectObject,
+            imageUrl: req.files[0].location,
+          }
+    );
     project
       .save()
       .then(() => res.status(201).json({ message: "Objet enregistré !" }))
